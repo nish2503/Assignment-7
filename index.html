@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guessing Game</title>
+    <meta charset="UTF-8">
+    <style>
+      .container{
+        /* display: flex;
+        
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        height: 100vh;
+         */
+       
+}
+
+        button{
+    border-radius: 0px;
+    background-color: rgb(247, 250, 87);
+     width: 100px;
+     padding: 10px 0px;
+     font-family: 'Roboto Mono', monospace;
+     font-weight: bold;
+}
+button:hover{
+  background-color: rgb(207, 233, 255);
+}
+#number-input{
+    border-radius: 60px;
+    /* max-width: fit-content; */
+    width: 150px;
+    padding: 10px;
+    
+}
+input[type="number"]{
+  text-align: center;
+}
+
+body {
+  background-image: url("https://www.shutterstock.com/image-vector/questions-answers-background-seamless-pattern-260nw-1757030222.jpg");
+ background-size: cover;
+  background-repeat: no-repeat;
+  font-weight: bold;
+  font-size: large;
+  color: rgb(7, 32, 53);
+}
+    </style>
+  </head>
+
+  <body>
+    <center>
+      <div class="container">
+    <h1>Guess The Number Game</h1>
+    <p>Enter a number between 1 and 100:</p>
+    <input type="number" id="userInput"><br><br>
+    <button onclick="mainFunction()">SUBMIT</button>
+    <p id="result"></p></div></center>
+    <script>
+        let answer;
+let attemptsLeft = 5;
+
+function mainFunction(){
+    startGame();
+    changeColors();
+}
+
+var index=0;
+
+function changeColors(){
+    var colors = ["indianred", "lavender", "tan", "lightsteelblue","yellowgreen","gold","lightcoral","darkseagreen"];
+
+    document.getElementsByTagName("body")[0].
+    style.background = colors[index++];
+
+    if(index>colors.length-1)
+    index = 0;
+
+} 
+
+function startGame() {
+  
+  const userInput = document.getElementById("userInput").value;
+
+
+  if (userInput < 1 || userInput > 100) {
+    document.getElementById("result").innerHTML = "Please enter a number between 1 and 100.";
+    return;
+  }
+
+ 
+  answer = userInput;
+
+ 
+  attemptsLeft = 5;
+
+ 
+  guessNumber();
+}
+
+function guessNumber() {
+  const guess = Math.floor(Math.random() * 100) + 1;
+
+  
+  attemptsLeft--;
+
+  document.getElementById("result").innerHTML += `Guess ${5-attemptsLeft}: Computer guessed ${guess}.<br>`;
+
+  if (guess == answer) {
+    document.getElementById("result").innerHTML += "Computer guessed the number correctly. Computer wins! You lose!";
+    return;
+  }
+
+  if (attemptsLeft <= 0) {
+    document.getElementById("result").innerHTML += `Computer failed to guess. Yay, You win! The answer was ${answer}.`;
+    return;
+  }
+
+  setTimeout(guessNumber, 1000);
+}
+    </script>
+  </body>
+</html>~
